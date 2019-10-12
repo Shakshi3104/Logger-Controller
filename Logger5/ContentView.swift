@@ -10,34 +10,33 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var logStarting = false
-    
-    @State private var accX: Double = 0.0
-    @State private var accY: Double = 0.0
-    @State private var accZ: Double = 0.0
-    @State private var gyrX: Double = 0.0
-    @State private var gyrY: Double = 0.0
-    @State private var gyrZ: Double = 0.0
-    @State private var magX: Double = 0.0
-    @State private var magY: Double = 0.0
-    @State private var magZ: Double = 0.0
+    private let motionLogger = MotionSensorLogger()
     
     var body: some View {
         VStack {
-            VStack {
-                Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/) {
-                Text("Save")
+            HStack {
+                Button(action: {
+                    
+                }) {
+                    Text("Save")
                 }
             }
+            .padding(.trailing, 250)
+
             VStack {
                 HStack {
                     if logStarting {
                         Text("Now Logging")
+                        
+                        /*計測開始*/
+                        
                     }
                     
                     Toggle(isOn: $logStarting) {
                         Text("")
                     }
-                }
+                }.padding(.horizontal)
+                
                 
                 VStack {
                    Picker(selection: /*@START_MENU_TOKEN@*/.constant(1)/*@END_MENU_TOKEN@*/, label: Text("Timing")) {
@@ -49,7 +48,7 @@ struct ContentView: View {
                        Text("Self").tag(1)
                        Text("Session").tag(2)
                    }.pickerStyle(SegmentedPickerStyle())
-                }.padding(25)
+                }.padding(.horizontal,25)
  
             }.padding(25)
             
