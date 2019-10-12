@@ -10,6 +10,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var logStarting = false
+    @State private var timingChoice = 0
+    @State private var autoChoice = 0
     private let motionLogger = MotionSensorLogger()
     
     var body: some View {
@@ -35,20 +37,20 @@ struct ContentView: View {
                     Toggle(isOn: $logStarting) {
                         Text("")
                     }
-                }.padding(.horizontal)
+                }.padding(15)
                 
                 
                 VStack {
-                   Picker(selection: /*@START_MENU_TOKEN@*/.constant(1)/*@END_MENU_TOKEN@*/, label: Text("Timing")) {
-                       Text("Immediately").tag(1)
-                       Text("After 5 sec").tag(2)
+                   Picker(selection: $timingChoice, label: Text("Timing")) {
+                       Text("Immediately").tag(0)
+                       Text("After 5 sec").tag(1)
                    }.pickerStyle(SegmentedPickerStyle())
                     
-                   Picker(selection: /*@START_MENU_TOKEN@*/.constant(1)/*@END_MENU_TOKEN@*/, label: Text("Auto")) {
-                       Text("Self").tag(1)
+                   Picker(selection: $autoChoice, label: Text("Auto")) {
+                       Text("Self").tag(0)
                        Text("Session").tag(2)
                    }.pickerStyle(SegmentedPickerStyle())
-                }.padding(.horizontal,25)
+                }.padding(.horizontal, 25)
  
             }.padding(25)
             
