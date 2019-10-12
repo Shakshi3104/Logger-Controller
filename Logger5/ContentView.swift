@@ -69,7 +69,7 @@ struct ContentView: View {
                         Text("accZ")
                             .multilineTextAlignment(.leading)
                         
-                    }
+                    }.padding(.horizontal)
                 }.padding(25)
                 
                 VStack(alignment: .leading) {
@@ -85,7 +85,7 @@ struct ContentView: View {
                         Spacer()
                         Text("gyrZ")
                             .multilineTextAlignment(.leading)
-                    }
+                    }.padding(.horizontal)
                 }.padding(25)
                 
                 
@@ -102,7 +102,7 @@ struct ContentView: View {
                         Spacer()
                         Text("magZ")
                             .multilineTextAlignment(.leading)
-                    }
+                    }.padding(.horizontal)
                 }.padding(25)
                 
             }
