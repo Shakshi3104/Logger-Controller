@@ -12,7 +12,7 @@ struct ContentView: View {
     @State private var logStarting = false
     @State private var timingChoice = 0
     @State private var autoChoice = 0
-    private let motionLogger = MotionSensorLogger()
+    private let motionLogger = DeprecatedSensorLogger()
     
     var body: some View {
         VStack {

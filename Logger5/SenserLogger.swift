@@ -9,19 +9,21 @@
 import Foundation
 import CoreMotion
 
-public class MotionSensorLogger {
+/* Deprecated Class*/
+#warning("Deprecated Class. Please use new MotionSensorLogger")
+public class DeprecatedSensorLogger {
     let motionManager = CMMotionManager()   // MotionManager
     var timer = Timer()
     
     // CSVファイルに書き出すデータ
-    let columnTo3D = "time, x, y, z\n"  // 3軸データ用のカラム
+    let columnTo3D = "time,x,y,z\n"  // 3軸データ用のカラム
     var outputAccelerometerData = ""    // 加速度センサのデータ
     var outputGyroscopeData = ""        // ジャイロセンサのデータ
     var outputMagnetometerData = ""     // 磁気センサのデータ
     
-    let columnToChange = "time, data\n" // 照度センサ、近接センサ用
+    let columnToChange = "time,data\n" // 照度センサ、近接センサ用
     
-    let columnTo3DAll = "time, acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z, mag_x, mag_y, mag_z\n" // 3軸データ全てを保存する用のカラム
+    let columnTo3DAll = "time,acc_x,acc_y,acc_z,gyr_x,gyr_y,gyr_z,mag_x,mag_y,mag_z\n" // 3軸データ全てを保存する用のカラム
     var outputAccelGyroMagnetData = ""  // 加速度、ジャイロ、磁気センサのデータ
     
     // イニシャライザ
