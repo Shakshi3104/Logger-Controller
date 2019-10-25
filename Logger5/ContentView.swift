@@ -12,6 +12,8 @@ struct ContentView: View {
     @State private var logStarting = false
     @State private var timingChoice = 0
     @State private var autoChoice = 0
+    @State private var username = ""
+    @State private var label = ""
     private let motionLogger = DeprecatedSensorLogger()
     
     var body: some View {
@@ -56,13 +58,11 @@ struct ContentView: View {
             
             HStack {
                 VStack {
-                    Text("Subject Name")
-                    TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                    TextField("Subject Name", text: $username)
                 }
                 
                 VStack {
-                    Text("Label")
-                    TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                    TextField("Label", text: $label)
                 }
             }
             
