@@ -54,7 +54,17 @@ struct ContentView: View {
  
             }.padding(25)
             
-            
+            HStack {
+                VStack {
+                    Text("Subject Name")
+                    TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                }
+                
+                VStack {
+                    Text("Label")
+                    TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: /*@START_MENU_TOKEN@*//*@PLACEHOLDER=Value@*/.constant("")/*@END_MENU_TOKEN@*/)
+                }
+            }
             
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
