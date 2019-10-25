@@ -57,14 +57,11 @@ struct ContentView: View {
             }.padding(25)
             
             HStack {
-                VStack {
-                    TextField("Subject Name", text: $username)
-                }
-                
-                VStack {
-                    TextField("Label", text: $label)
-                }
+                TextField("Subject Name", text: $username)
+
+                TextField("Label", text: $label)
             }
+            .padding(.leading, 80)
             
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
