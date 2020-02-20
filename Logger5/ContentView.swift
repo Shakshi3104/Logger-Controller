@@ -20,9 +20,9 @@ struct ContentView: View {
         VStack {
             HStack {
                 Button(action: {
-                    
+                    // 動作を書く部分
                 }) {
-                    Text("Save")
+                    Image(systemName: "square.and.arrow.up")
                 }
             }
             .padding(.trailing, 250)
