@@ -14,13 +14,25 @@ struct ContentView: View {
     @State private var autoChoice = 0
     @State private var username = ""
     @State private var label = ""
+    
+    @State private var accXLabel = "X"
+    @State private var accYLabel = "Y"
+    @State private var accZLabel = "Z"
+    @State private var gyrXLabel = "X"
+    @State private var gyrYLabel = "Y"
+    @State private var gyrZLabel = "Z"
+    @State private var magXLabel = "X"
+    @State private var magYLabel = "Y"
+    @State private var magZLabel = "Z"
+    
     private let motionLogger = DeprecatedSensorLogger()
     
     var body: some View {
         VStack {
             HStack {
                 Button(action: {
-                    // 動作を書く部分
+                    // 保存の処理を書く
+                    
                 }) {
                     Image(systemName: "square.and.arrow.up")
                 }
@@ -69,13 +81,13 @@ struct ContentView: View {
                         .font(.headline)
                     
                     HStack {
-                        Text("accX")
+                        Text("\(self.accXLabel)")
                             .multilineTextAlignment(.leading)
                         Spacer()
-                        Text("accY")
+                        Text("\(self.accYLabel)")
                             .multilineTextAlignment(.leading)
                         Spacer()
-                        Text("accZ")
+                        Text("\(self.accZLabel)")
                             .multilineTextAlignment(.leading)
                         
                     }.padding(.horizontal)
@@ -86,13 +98,13 @@ struct ContentView: View {
                     .font(.headline)
                     
                     HStack {
-                        Text("gyrX")
+                        Text("\(self.gyrXLabel)")
                             .multilineTextAlignment(.leading)
                         Spacer()
-                        Text("gyrY")
+                        Text("\(self.gyrYLabel)")
                             .multilineTextAlignment(.leading)
                         Spacer()
-                        Text("gyrZ")
+                        Text("\(self.gyrZLabel)")
                             .multilineTextAlignment(.leading)
                     }.padding(.horizontal)
                 }.padding(25)
@@ -103,13 +115,13 @@ struct ContentView: View {
                         .font(.headline)
                     
                     HStack {
-                        Text("magX")
+                        Text("\(self.magXLabel)")
                             .multilineTextAlignment(.leading)
                         Spacer()
-                        Text("magY")
+                        Text("\(self.magYLabel)")
                             .multilineTextAlignment(.leading)
                         Spacer()
-                        Text("magZ")
+                        Text("\(self.magZLabel)")
                             .multilineTextAlignment(.leading)
                     }.padding(.horizontal)
                 }.padding(25)
