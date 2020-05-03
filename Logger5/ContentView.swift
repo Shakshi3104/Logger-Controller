@@ -25,34 +25,60 @@ struct ContentView: View {
     @State private var magYLabel = "Y"
     @State private var magZLabel = "Z"
     
-    private let motionLogger = DeprecatedSensorLogger()
+    @ObservedObject var sensorLogger = SensorManager()
     
     var body: some View {
         VStack {
             HStack {
+                Spacer()
+                // 保存ボタン
                 Button(action: {
                     // 保存の処理を書く
                     
                 }) {
                     Image(systemName: "square.and.arrow.up")
                 }
-            }
-            .padding(.trailing, 250)
-
-            VStack {
-                HStack {
-                    if logStarting {
-                        Text("Now Logging")
+                Spacer()
+                // 計測ボタン
+                Button(action: {
+                    self.logStarting.toggle()
+                    
+                    if self.logStarting {
+                        self.sensorLogger.startUpdate(50.0)
+                        self.accXLabel = String(format:  "%.3f", self.sensorLogger.accX)
+                        self.accYLabel = String(format: "%.3f", self.sensorLogger.accY)
+                        self.accZLabel = String(format: "%.3f", self.sensorLogger.accZ)
                         
-                        /*計測開始*/
-                        
+                        self.gyrXLabel = String(format: "%.3f", self.sensorLogger.gyrX)
+                        self.gyrYLabel = String(format: "%.3f", self.sensorLogger.gyrY)
+                        self.gyrZLabel = String(format: "%.3f", self.sensorLogger.gyrZ)
+                    }
+                    else {
+                        self.sensorLogger.stopUpdate()
+                        self.accXLabel = "X"
+                        self.accYLabel = "Y"
+                        self.accZLabel = "Z"
+                        self.gyrXLabel = "X"
+                        self.gyrYLabel = "Y"
+                        self.gyrZLabel = "Z"
                     }
                     
-                    Toggle(isOn: $logStarting) {
-                        Text("")
+                }) {
+                    if self.logStarting {
+                        Image(systemName: "pause.circle")
                     }
-                }.padding(15)
-                
+                    else {
+                        Image(systemName: "play.circle")
+                    }
+                }
+                Spacer()
+            }
+            .padding(.horizontal)
+            
+            
+            
+
+            VStack {
                 
                 VStack {
                    Picker(selection: $timingChoice, label: Text("Timing")) {
@@ -74,6 +100,7 @@ struct ContentView: View {
                 TextField("Label", text: $label)
             }
             .padding(.leading, 80)
+            
             
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
