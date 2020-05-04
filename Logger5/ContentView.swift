@@ -10,7 +10,8 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var logStarting = false
-    @State private var isSharePresented: Bool = false
+    @State private var isSharePresented = false
+    @State private var isEmptySubjectLabel = false
     @State private var timingChoice = 0
     @State private var autoChoice = 0
     @State private var username = ""
@@ -21,6 +22,7 @@ struct ContentView: View {
     @State private var magZLabel = "Z"
     
     @ObservedObject var sensorLogger = SensorLogManager()
+    @State private var backgroundTaskID: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 3104)
     
     var body: some View {
         VStack {
@@ -28,32 +30,57 @@ struct ContentView: View {
                 Spacer()
                 // 保存ボタン
                 Button(action: {
-                    self.isSharePresented = true
+                    
+                    if self.username == "" || self.label == "" {
+                        // Subject NameかLabelが空だったら
+                        self.isEmptySubjectLabel = true
+                        self.isSharePresented = false
+                    }
+                    else {
+                        self.isEmptySubjectLabel = false
+                        self.isSharePresented = true
+                    }
                 }) {
-                    Image(systemName: "square.and.arrow.up")
+                    HStack {
+                        Image(systemName: "square.and.arrow.up")
+                        Text("Save")
+                    }
                 }
                 .sheet(isPresented: $isSharePresented, content: {
-                    // ActivityViewControllerを表示
-                    ActivityViewController(activityItems: self.sensorLogger.logger.getDataURLs(label: self.label, subject: self.username), applicationActivities: nil)
-                })
+                        // ActivityViewControllerを表示
+                        ActivityViewController(activityItems: self.sensorLogger.logger.getDataURLs(label: self.label, subject: self.username), applicationActivities: nil)
+                    })
+                    .alert(isPresented: $isEmptySubjectLabel, content: {
+                        Alert(title: Text("保存できません"), message: Text("Subject NameとLabelを入力してください"))
+                    })
+                
                 Spacer()
                 // 計測ボタン
                 Button(action: {
                     self.logStarting.toggle()
                     
                     if self.logStarting {
+                        self.backgroundTaskID =
+                        UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
                         self.sensorLogger.startUpdate(50.0)
                     }
                     else {
                         self.sensorLogger.stopUpdate()
+                        UIApplication.shared.endBackgroundTask(self.backgroundTaskID)
                     }
                     
                 }) {
                     if self.logStarting {
-                        Image(systemName: "pause.circle")
+                        HStack {
+                            Image(systemName: "pause.circle")
+                            Text("Stop")
+                        }
                     }
                     else {
-                        Image(systemName: "play.circle")
+                        HStack {
+                            Image(systemName: "play.circle")
+                            Text("Start")
+                        }
                     }
                 }
                 Spacer()
@@ -61,39 +88,35 @@ struct ContentView: View {
             .padding(.horizontal)
             
             
-            
-
+            // モード切り替え
             VStack {
+               Picker(selection: $timingChoice, label: Text("Timing")) {
+                   Text("Immediately").tag(0)
+                   Text("After 5 sec").tag(1)
+               }.pickerStyle(SegmentedPickerStyle())
                 
-                VStack {
-                   Picker(selection: $timingChoice, label: Text("Timing")) {
-                       Text("Immediately").tag(0)
-                       Text("After 5 sec").tag(1)
-                   }.pickerStyle(SegmentedPickerStyle())
-                    
-                   Picker(selection: $autoChoice, label: Text("Auto")) {
-                       Text("Self").tag(0)
-                       Text("Session").tag(1)
-                   }.pickerStyle(SegmentedPickerStyle())
-                }.padding(.horizontal, 25)
- 
+               Picker(selection: $autoChoice, label: Text("Auto")) {
+                   Text("Self").tag(0)
+                   Text("Session").tag(1)
+               }.pickerStyle(SegmentedPickerStyle())
             }.padding(25)
-            
-            HStack {
-                TextField("Subject Name", text: $username)
 
-                TextField("Label", text: $label)
-            }
-            .padding(.leading, 80)
+            // ラベル情報入力
+            HStack {
+                TextField("Subject Name", text: $username).textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.horizontal)
+                
+                TextField("Label", text: $label).textFieldStyle(RoundedBorderTextFieldStyle())
+                    .padding(.horizontal)
+            }.padding(.horizontal)
             
-            
+            // センサー値を表示
             VStack(alignment: .leading) {
                 VStack(alignment: .leading) {
                     Text("Accelerometer")
                         .font(.headline)
                     
                     HStack {
-                        
                         Text(String(format: "%.3f", self.sensorLogger.accX))
                             .multilineTextAlignment(.leading)
                         Spacer()
@@ -140,6 +163,8 @@ struct ContentView: View {
                 }.padding(25)
                 
             }
+        }.onTapGesture {
+            UIApplication.shared.endEditing()
         }
     }
 }
@@ -162,5 +187,12 @@ struct ActivityViewController: UIViewControllerRepresentable {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+// extension for keyboard to dismiss
+extension UIApplication {
+    func endEditing() {
+        sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
 }
