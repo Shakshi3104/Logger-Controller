@@ -15,12 +15,6 @@ struct ContentView: View {
     @State private var username = ""
     @State private var label = ""
     
-    @State private var accXLabel = "X"
-    @State private var accYLabel = "Y"
-    @State private var accZLabel = "Z"
-    @State private var gyrXLabel = "X"
-    @State private var gyrYLabel = "Y"
-    @State private var gyrZLabel = "Z"
     @State private var magXLabel = "X"
     @State private var magYLabel = "Y"
     @State private var magZLabel = "Z"
@@ -45,22 +39,9 @@ struct ContentView: View {
                     
                     if self.logStarting {
                         self.sensorLogger.startUpdate(50.0)
-                        self.accXLabel = String(format:  "%.3f", self.sensorLogger.accX)
-                        self.accYLabel = String(format: "%.3f", self.sensorLogger.accY)
-                        self.accZLabel = String(format: "%.3f", self.sensorLogger.accZ)
-                        
-                        self.gyrXLabel = String(format: "%.3f", self.sensorLogger.gyrX)
-                        self.gyrYLabel = String(format: "%.3f", self.sensorLogger.gyrY)
-                        self.gyrZLabel = String(format: "%.3f", self.sensorLogger.gyrZ)
                     }
                     else {
                         self.sensorLogger.stopUpdate()
-                        self.accXLabel = "X"
-                        self.accYLabel = "Y"
-                        self.accZLabel = "Z"
-                        self.gyrXLabel = "X"
-                        self.gyrYLabel = "Y"
-                        self.gyrZLabel = "Z"
                     }
                     
                 }) {
@@ -88,7 +69,7 @@ struct ContentView: View {
                     
                    Picker(selection: $autoChoice, label: Text("Auto")) {
                        Text("Self").tag(0)
-                       Text("Session").tag(2)
+                       Text("Session").tag(1)
                    }.pickerStyle(SegmentedPickerStyle())
                 }.padding(.horizontal, 25)
  
@@ -108,13 +89,14 @@ struct ContentView: View {
                         .font(.headline)
                     
                     HStack {
-                        Text("\(self.accXLabel)")
+                        
+                        Text(String(format: "%.3f", self.sensorLogger.accX))
                             .multilineTextAlignment(.leading)
                         Spacer()
-                        Text("\(self.accYLabel)")
+                        Text(String(format: "%.3f", self.sensorLogger.accY))
                             .multilineTextAlignment(.leading)
                         Spacer()
-                        Text("\(self.accZLabel)")
+                        Text(String(format: "%.3f", self.sensorLogger.accZ))
                             .multilineTextAlignment(.leading)
                         
                     }.padding(.horizontal)
@@ -125,13 +107,13 @@ struct ContentView: View {
                     .font(.headline)
                     
                     HStack {
-                        Text("\(self.gyrXLabel)")
+                        Text(String(format: "%.3f", self.sensorLogger.gyrX))
                             .multilineTextAlignment(.leading)
                         Spacer()
-                        Text("\(self.gyrYLabel)")
+                        Text(String(format: "%.3f", self.sensorLogger.gyrY))
                             .multilineTextAlignment(.leading)
                         Spacer()
-                        Text("\(self.gyrZLabel)")
+                        Text(String(format: "%.3f", self.sensorLogger.gyrZ))
                             .multilineTextAlignment(.leading)
                     }.padding(.horizontal)
                 }.padding(25)
@@ -142,13 +124,13 @@ struct ContentView: View {
                         .font(.headline)
                     
                     HStack {
-                        Text("\(self.magXLabel)")
+                        Text(String(format: "%.2f", self.sensorLogger.magX))
                             .multilineTextAlignment(.leading)
                         Spacer()
-                        Text("\(self.magYLabel)")
+                        Text(String(format: "%.2f", self.sensorLogger.magY))
                             .multilineTextAlignment(.leading)
                         Spacer()
-                        Text("\(self.magZLabel)")
+                        Text(String(format: "%.2f", self.sensorLogger.magZ))
                             .multilineTextAlignment(.leading)
                     }.padding(.horizontal)
                 }.padding(25)
