@@ -10,6 +10,7 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var logStarting = false
+    @State private var isSharePresented: Bool = false
     @State private var timingChoice = 0
     @State private var autoChoice = 0
     @State private var username = ""
@@ -27,11 +28,14 @@ struct ContentView: View {
                 Spacer()
                 // 保存ボタン
                 Button(action: {
-                    // 保存の処理を書く
-                    
+                    self.isSharePresented = true
                 }) {
                     Image(systemName: "square.and.arrow.up")
                 }
+                .sheet(isPresented: $isSharePresented, content: {
+                    // ActivityViewControllerを表示
+                    ActivityViewController(activityItems: self.sensorLogger.logger.getDataURLs(label: self.label, subject: self.username), applicationActivities: nil)
+                })
                 Spacer()
                 // 計測ボタン
                 Button(action: {
@@ -138,6 +142,21 @@ struct ContentView: View {
             }
         }
     }
+}
+
+// UIActivityViewController on SwiftUI
+struct ActivityViewController: UIViewControllerRepresentable {
+
+    var activityItems: [Any]
+    var applicationActivities: [UIActivity]? = nil
+
+    func makeUIViewController(context: UIViewControllerRepresentableContext<ActivityViewController>) -> UIActivityViewController {
+        let controller = UIActivityViewController(activityItems: activityItems, applicationActivities: applicationActivities)
+        return controller
+    }
+
+    func updateUIViewController(_ uiViewController: UIActivityViewController, context: UIViewControllerRepresentableContext<ActivityViewController>) {}
+
 }
 
 struct ContentView_Previews: PreviewProvider {

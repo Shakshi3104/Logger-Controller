@@ -134,7 +134,7 @@ class SensorLogger {
     var gyroscopeData : String
     var magnetometerData : String
     
-    init() {
+    public init() {
         let column = "time,x,y,z\n"
         self.accelerometerData = column
         self.gyroscopeData = column
@@ -150,7 +150,7 @@ class SensorLogger {
     
     /* センサデータを保存する */
     func logAccelerometerData(time: String, x: Double, y: Double, z: Double) {
-        var line = time
+        var line = time + ","
         line.append(contentsOf: String(x) + ",")
         line.append(contentsOf: String(y) + ",")
         line.append(contentsOf: String(z) + "\n")
@@ -159,7 +159,7 @@ class SensorLogger {
     }
     
     func logGyroscopeData(time: String, x: Double, y: Double, z: Double) {
-        var line = time
+        var line = time + ","
         line.append(contentsOf: String(x) + ",")
         line.append(contentsOf: String(y) + ",")
         line.append(contentsOf: String(z) + "\n")
@@ -168,7 +168,7 @@ class SensorLogger {
     }
     
     func logMagnetometerData(time: String, x: Double, y: Double, z: Double) {
-        var line = time
+        var line = time + ","
         line.append(contentsOf: String(x) + ",")
         line.append(contentsOf: String(y) + ",")
         line.append(contentsOf: String(z) + "\n")
@@ -207,6 +207,17 @@ class SensorLogger {
         urls.append(URL(fileURLWithPath: gyroFilepath))
         urls.append(URL(fileURLWithPath: magnetFilepath))
         
+        // データをリセットする
+        self.resetData()
+        
         return urls
+    }
+    
+    // データをリセットする
+    func resetData() {
+        let column = "time,x,y,z\n"
+        self.accelerometerData = column
+        self.gyroscopeData = column
+        self.magnetometerData = column
     }
 }
