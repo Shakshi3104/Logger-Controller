@@ -19,7 +19,7 @@ struct ContentView: View {
     @State private var magYLabel = "Y"
     @State private var magZLabel = "Z"
     
-    @ObservedObject var sensorLogger = SensorManager()
+    @ObservedObject var sensorLogger = SensorLogManager()
     
     var body: some View {
         VStack {

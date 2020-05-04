@@ -10,8 +10,9 @@ import Foundation
 import CoreMotion
 import Combine
 
-class SensorManager: NSObject, ObservableObject {
+class SensorLogManager: NSObject, ObservableObject {
     var motionManager: CMMotionManager?
+    var logger = SensorLogger()
     
     @Published var accX = 0.0
     @Published var accY = 0.0
@@ -77,7 +78,14 @@ class SensorManager: NSObject, ObservableObject {
             self.magZ = Double.nan
         }
         
-        print("\(self.accX), \(self.accY), \(self.accZ)")
+        // センサデータを記録する
+        let timestamp = self.logger.getTimestamp()
+        self.logger.logAccelerometerData(time: timestamp, x: self.accX, y: self.accY, z: self.accZ)
+        self.logger.logGyroscopeData(time: timestamp, x: self.gyrX, y: self.gyrY, z: self.gyrZ)
+        self.logger.logMagnetometerData(time: timestamp, x: self.magX, y: self.magY, z: self.magZ)
+        
+        print(timestamp + ", \(self.accX), \(self.accY), \(self.accZ)")
+        
     }
     
     func startUpdate(_ freq: Double) {
@@ -122,5 +130,83 @@ class SensorManager: NSObject, ObservableObject {
 
 
 class SensorLogger {
+    var accelerometerData : String
+    var gyroscopeData : String
+    var magnetometerData : String
     
+    init() {
+        let column = "time,x,y,z\n"
+        self.accelerometerData = column
+        self.gyroscopeData = column
+        self.magnetometerData = column
+    }
+    
+    // タイムスタンプを取得する
+    func getTimestamp() -> String {
+        let format = DateFormatter()
+        format.dateFormat = "yyyy/MM/dd HH:mm:ss.SSS"
+        return format.string(from: Date())
+    }
+    
+    /* センサデータを保存する */
+    func logAccelerometerData(time: String, x: Double, y: Double, z: Double) {
+        var line = time
+        line.append(contentsOf: String(x) + ",")
+        line.append(contentsOf: String(y) + ",")
+        line.append(contentsOf: String(z) + "\n")
+        
+        self.accelerometerData.append(contentsOf: line)
+    }
+    
+    func logGyroscopeData(time: String, x: Double, y: Double, z: Double) {
+        var line = time
+        line.append(contentsOf: String(x) + ",")
+        line.append(contentsOf: String(y) + ",")
+        line.append(contentsOf: String(z) + "\n")
+        
+        self.gyroscopeData.append(contentsOf: line)
+    }
+    
+    func logMagnetometerData(time: String, x: Double, y: Double, z: Double) {
+        var line = time
+        line.append(contentsOf: String(x) + ",")
+        line.append(contentsOf: String(y) + ",")
+        line.append(contentsOf: String(z) + "\n")
+        
+        self.magnetometerData.append(contentsOf: line)
+    }
+    
+    // 保存したファイルパスを取得する
+    func getDataURLs(label: String, subject: String) -> [URL] {
+        let format = DateFormatter()
+        format.dateFormat = "yyyyMMddHHmmss"
+        let time = format.string(from: Date())
+        
+        /* 一時ファイルを保存する場所 */
+        let tmppath = NSHomeDirectory() + "/tmp"
+        
+        let apd = "\(time)_\(label)_\(subject)" // 付加する文字列(時間+ラベル+ユーザ名)
+        // ファイル名を生成
+        let accelerometerFilepath = tmppath + "/accelermeter_\(apd).csv"
+        let gyroFilepath = tmppath + "/gyroscope_\(apd).csv"
+        let magnetFilepath = tmppath + "/magnetometer_\(apd).csv"
+        
+        // ファイルを書き出す
+        do {
+            try self.accelerometerData.write(toFile: accelerometerFilepath, atomically: true, encoding: String.Encoding.utf8)
+            try self.gyroscopeData.write(toFile: gyroFilepath, atomically: true, encoding: String.Encoding.utf8)
+            try self.magnetometerData.write(toFile: magnetFilepath, atomically: true, encoding: String.Encoding.utf8)
+        }
+        catch let error as NSError{
+            print("Failure to Write File\n\(error)")
+        }
+        
+        /* 書き出したcsvファイルの場所を取得 */
+        var urls = [URL]()
+        urls.append(URL(fileURLWithPath: accelerometerFilepath))
+        urls.append(URL(fileURLWithPath: gyroFilepath))
+        urls.append(URL(fileURLWithPath: magnetFilepath))
+        
+        return urls
+    }
 }
