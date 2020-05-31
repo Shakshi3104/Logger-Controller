@@ -17,10 +17,6 @@ struct ContentView: View {
     @State private var username = ""
     @State private var label = ""
     
-    @State private var magXLabel = "X"
-    @State private var magYLabel = "Y"
-    @State private var magZLabel = "Z"
-    
     @ObservedObject var sensorLogger = SensorLogManager()
     @State private var backgroundTaskID: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 3104)
     
@@ -31,7 +27,7 @@ struct ContentView: View {
                 // 保存ボタン
                 Button(action: {
                     
-                    if self.username == "" || self.label == "" {
+                    if self.username.count == 0 || self.label.count == 0 {
                         // Subject NameかLabelが空だったら
                         self.isEmptySubjectLabel = true
                         self.isSharePresented = false
