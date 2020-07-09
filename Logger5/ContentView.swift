@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import SwiftUICharts
 
 struct ContentView: View {
     @State private var logStarting = false
@@ -16,6 +17,8 @@ struct ContentView: View {
     @State private var autoChoice = 0
     @State private var username = ""
     @State private var label = ""
+    
+    @State private var viewChoise = 0
     
     @ObservedObject var sensorLogger = SensorLogManager()
     @State private var backgroundTaskID: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 3104)
@@ -82,84 +85,95 @@ struct ContentView: View {
                 Spacer()
             }
             .padding(.horizontal)
-            
-            
-            // モード切り替え
-            VStack {
-               Picker(selection: $timingChoice, label: Text("Timing")) {
-                   Text("Immediately").tag(0)
-                   Text("After 5 sec").tag(1)
-               }.pickerStyle(SegmentedPickerStyle())
-                
-               Picker(selection: $autoChoice, label: Text("Auto")) {
-                   Text("Self").tag(0)
-                   Text("Session").tag(1)
-               }.pickerStyle(SegmentedPickerStyle())
-            }.padding(25)
 
-            // ラベル情報入力
-            HStack {
-                TextField("Subject Name", text: $username).textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
+            VStack {
+                // ラベル情報入力
+                HStack {
+                    TextField("Subject Name", text: $username).textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal)
+                    
+                    TextField("Label", text: $label).textFieldStyle(RoundedBorderTextFieldStyle())
+                        .padding(.horizontal)
+                }.padding(.horizontal)
                 
-                TextField("Label", text: $label).textFieldStyle(RoundedBorderTextFieldStyle())
-                    .padding(.horizontal)
-            }.padding(.horizontal)
+                Picker(selection: $viewChoise, label: Text("View")) {
+                    Text("Raw").tag(0)
+                    Text("Chart").tag(1)
+                }.pickerStyle(SegmentedPickerStyle())
+                    .padding(.horizontal, 25)
+                    .padding(.vertical, 20)
+    
+            }.padding(.vertical, 20)
             
-            // センサー値を表示
-            VStack(alignment: .leading) {
+            if self.viewChoise == 0 {
+                // センサー値を表示
                 VStack(alignment: .leading) {
-                    Text("Accelerometer")
-                        .font(.headline)
-                    
-                    HStack {
-                        Text(String(format: "%.3f", self.sensorLogger.accX))
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                        Text(String(format: "%.3f", self.sensorLogger.accY))
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                        Text(String(format: "%.3f", self.sensorLogger.accZ))
-                            .multilineTextAlignment(.leading)
+                    VStack(alignment: .leading) {
+                        Text("Accelerometer")
+                            .font(.headline)
                         
-                    }.padding(.horizontal)
-                }.padding(25)
-                
-                VStack(alignment: .leading) {
-                    Text("Gyroscope")
-                    .font(.headline)
+                        HStack {
+                            Text(String(format: "%.3f", self.sensorLogger.accX))
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(String(format: "%.3f", self.sensorLogger.accY))
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(String(format: "%.3f", self.sensorLogger.accZ))
+                                .multilineTextAlignment(.leading)
+                            
+                        }.padding(.horizontal)
+                    }.padding(.horizontal, 25)
+                        .padding(.vertical, 20)
                     
-                    HStack {
-                        Text(String(format: "%.3f", self.sensorLogger.gyrX))
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                        Text(String(format: "%.3f", self.sensorLogger.gyrY))
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                        Text(String(format: "%.3f", self.sensorLogger.gyrZ))
-                            .multilineTextAlignment(.leading)
-                    }.padding(.horizontal)
-                }.padding(25)
-                
-                
-                VStack(alignment: .leading) {
-                    Text("Magnetometer")
+                    VStack(alignment: .leading) {
+                        Text("Gyroscope")
                         .font(.headline)
+                        
+                        HStack {
+                            Text(String(format: "%.3f", self.sensorLogger.gyrX))
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(String(format: "%.3f", self.sensorLogger.gyrY))
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(String(format: "%.3f", self.sensorLogger.gyrZ))
+                                .multilineTextAlignment(.leading)
+                        }.padding(.horizontal)
+                    }.padding(.horizontal, 25)
+                        .padding(.vertical, 20)
                     
-                    HStack {
-                        Text(String(format: "%.2f", self.sensorLogger.magX))
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                        Text(String(format: "%.2f", self.sensorLogger.magY))
-                            .multilineTextAlignment(.leading)
-                        Spacer()
-                        Text(String(format: "%.2f", self.sensorLogger.magZ))
-                            .multilineTextAlignment(.leading)
-                    }.padding(.horizontal)
-                }.padding(25)
-                
+                    
+                    VStack(alignment: .leading) {
+                        Text("Magnetometer")
+                            .font(.headline)
+                        
+                        HStack {
+                            Text(String(format: "%.2f", self.sensorLogger.magX))
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(String(format: "%.2f", self.sensorLogger.magY))
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(String(format: "%.2f", self.sensorLogger.magZ))
+                                .multilineTextAlignment(.leading)
+                        }.padding(.horizontal)
+                    }.padding(.horizontal, 25)
+                        .padding(.vertical, 20)
+                    
+                }
             }
+            else if self.viewChoise == 1 {
+                HStack {
+                    MultiLineChartView(data: [(self.sensorLogger.accXArray, GradientColors.green), (self.sensorLogger.accYArray, GradientColors.orange), (self.sensorLogger.accZArray, GradientColors.blue)], title: "Acc")
+                    
+                    MultiLineChartView(data: [(self.sensorLogger.gyrXArray, GradientColors.green), (self.sensorLogger.gyrYArray, GradientColors.orange), (self.sensorLogger.gyrZArray, GradientColors.blue)], title: "Gyr")
+                }
+            }
+            
+            
         }.onTapGesture {
+            // タップしたときにキーボードを下げる
             UIApplication.shared.endEditing()
         }
     }
