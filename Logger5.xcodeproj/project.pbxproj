@@ -29,6 +29,7 @@
 		CE93647B235063F30087CA57 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE93647E235063F30087CA57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE936480235063F30087CA57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEF12F6524C7C36F001DA115 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +72,7 @@
 				CE936480235063F30087CA57 /* Info.plist */,
 				CE93647A235063F30087CA57 /* Preview Content */,
 				CE25BFDD2362D3EB00D51F08 /* MotionSensorLogger.swift */,
+				CEF12F6524C7C36F001DA115 /* README.md */,
 			);
 			path = Logger5;
 			sourceTree = "<group>";
