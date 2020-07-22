@@ -23,7 +23,7 @@ This application can measure acceleraton data, gyroscope data and magnetic data,
 ## Update History
 
 |Update Date|Contents|
-|:-------------:|:---------:|
+|:-------------:|:---------|
 |2020/2/20| Implement UI|
 |2020/5/3| Implement internals|
 |2020/5/4| Release 1st version|
