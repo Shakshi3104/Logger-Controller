@@ -47,6 +47,7 @@
 		CE936466235063EC0087CA57 = {
 			isa = PBXGroup;
 			children = (
+				CEF12F6524C7C36F001DA115 /* README.md */,
 				CE936471235063EC0087CA57 /* Logger5 */,
 				CE936470235063EC0087CA57 /* Products */,
 			);
@@ -72,7 +73,6 @@
 				CE936480235063F30087CA57 /* Info.plist */,
 				CE93647A235063F30087CA57 /* Preview Content */,
 				CE25BFDD2362D3EB00D51F08 /* MotionSensorLogger.swift */,
-				CEF12F6524C7C36F001DA115 /* README.md */,
 			);
 			path = Logger5;
 			sourceTree = "<group>";
