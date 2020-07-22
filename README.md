@@ -6,9 +6,16 @@ This application can measure acceleraton data, gyroscope data and magnetic data,
 ![screen](materials/IMG_3838.PNG) | ![screen_chart](materials/IMG_3837.PNG) | ![screen_chart_light](materials/IMG_3836.PNG)
 :-:|:-:|:-:
 
+## Version
+5.1.0
+(With SwiftUI and Combine: 1.1.0)
+
+- Note: Logger v4 (With Storyboard) is [this](https://github.com/Shakshi3104/LoggerGit)
+
 ## Requirements
 - iOS 13.1+
 - Xcode 11.5
 
 ## Swift Package Dependencies
 - [SwiftUICharts](https://github.com/AppPear/ChartView)
+
