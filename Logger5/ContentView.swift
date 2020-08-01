@@ -34,6 +34,10 @@ struct ContentView: View {
                         // Subject NameかLabelが空だったら
                         self.isEmptySubjectLabel = true
                         self.isSharePresented = false
+                        
+                        // Haptic Engineへのフィードバック
+                        let errorFeedback = UINotificationFeedbackGenerator()
+                        errorFeedback.notificationOccurred(.error)
                     }
                     else {
                         self.isEmptySubjectLabel = false
@@ -58,9 +62,15 @@ struct ContentView: View {
                 Button(action: {
                     self.logStarting.toggle()
                     
+                    let switchFeedback = UIImpactFeedbackGenerator(style: .medium)
+                    switchFeedback.impactOccurred()
+                    
                     if self.logStarting {
+                        // バックグラウンドタスク
                         self.backgroundTaskID =
                         UIApplication.shared.beginBackgroundTask(expirationHandler: nil)
+                        
+                        // 計測スタート
                         self.sensorLogger.startUpdate(50.0)
                     }
                     else {
