@@ -15,7 +15,7 @@ This application can measure acceleraton data, gyroscope data and magnetic data,
 
 ## Requirements
 - iOS 13.1+
-- Xcode 11.5
+- Xcode 11.5+
 
 ## Swift Package Dependencies
 - [SwiftUICharts](https://github.com/AppPear/ChartView)
