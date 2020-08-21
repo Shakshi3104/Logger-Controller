@@ -5,8 +5,8 @@ This application can measure acceleraton data, gyroscope data and magnetic data,
 This application also can measure headphone's acceleration data and gyroscope data in iOS 14.
 
 
-![screen](materials/IMG_3838.PNG) | ![screen_chart](materials/IMG_3837.PNG) | ![screen_chart_light](materials/IMG_3836.PNG)
-:-:|:-:|:-:
+![screen](materials/top1.png) | ![screen_chart](materials/top2.png) 
+:-:|:-:
 
 ## Version
 5.2.0 Beta
