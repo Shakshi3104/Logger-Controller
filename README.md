@@ -18,8 +18,6 @@ This application also can measure headphone's acceleration data and gyroscope da
 - iOS 13.1+
 - Xcode 11.5+
 
-## Swift Package Dependencies
-- [SwiftUICharts](https://github.com/AppPear/ChartView)
 
 ## Update History
 
