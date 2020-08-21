@@ -106,18 +106,15 @@ struct ContentView: View {
                         .padding(.horizontal)
                 }.padding(.horizontal)
                 
-                Picker(selection: $viewChoise, label: Text("View")) {
-                    Text("Raw").tag(0)
-                    Text("Chart").tag(1)
-                }.pickerStyle(SegmentedPickerStyle())
-                    .padding(.horizontal, 25)
-                    .padding(.vertical, 20)
     
             }.padding(.vertical, 20)
             
-            if self.viewChoise == 0 {
-                // センサー値を表示
-                VStack(alignment: .leading) {
+            
+        // センサー値を表示
+            VStack {
+                VStack {
+                    Text("iPhone").font(.headline)
+                    
                     VStack(alignment: .leading) {
                         Text("Accelerometer")
                             .font(.headline)
@@ -134,7 +131,7 @@ struct ContentView: View {
                             
                         }.padding(.horizontal)
                     }.padding(.horizontal, 25)
-                        .padding(.vertical, 20)
+                        .padding(.vertical, 5)
                     
                     VStack(alignment: .leading) {
                         Text("Gyroscope")
@@ -151,7 +148,7 @@ struct ContentView: View {
                                 .multilineTextAlignment(.leading)
                         }.padding(.horizontal)
                     }.padding(.horizontal, 25)
-                        .padding(.vertical, 20)
+                        .padding(.vertical, 5)
                     
                     
                     VStack(alignment: .leading) {
@@ -169,19 +166,49 @@ struct ContentView: View {
                                 .multilineTextAlignment(.leading)
                         }.padding(.horizontal)
                     }.padding(.horizontal, 25)
-                        .padding(.vertical, 20)
-                    
-                }
+                        .padding(.vertical, 5)
+                }.padding(.vertical, 5)
+                
+                VStack {
+                     Text("AirPods").font(.headline)
+
+                     VStack(alignment: .leading) {
+                         Text("Accelerometer")
+                             .font(.headline)
+
+                         HStack {
+                             Text(String(format: "%.3f", self.sensorLogger.accX))
+                                 .multilineTextAlignment(.leading)
+                             Spacer()
+                             Text(String(format: "%.3f", self.sensorLogger.accY))
+                                 .multilineTextAlignment(.leading)
+                             Spacer()
+                             Text(String(format: "%.3f", self.sensorLogger.accZ))
+                                 .multilineTextAlignment(.leading)
+
+                         }.padding(.horizontal)
+                     }.padding(.horizontal, 25)
+                         .padding(.vertical, 5)
+
+                     VStack(alignment: .leading) {
+                         Text("Gyroscope")
+                         .font(.headline)
+
+                         HStack {
+                             Text(String(format: "%.3f", self.sensorLogger.gyrX))
+                                 .multilineTextAlignment(.leading)
+                             Spacer()
+                             Text(String(format: "%.3f", self.sensorLogger.gyrY))
+                                 .multilineTextAlignment(.leading)
+                             Spacer()
+                             Text(String(format: "%.3f", self.sensorLogger.gyrZ))
+                                 .multilineTextAlignment(.leading)
+                         }.padding(.horizontal)
+                     }.padding(.horizontal, 25)
+                         .padding(.vertical, 5)
+                }.padding(.vertical, 5)
             }
-            else if self.viewChoise == 1 {
-                HStack {
-                    MultiLineChartView(data: [(self.sensorLogger.accXArray, GradientColors.green), (self.sensorLogger.accYArray, GradientColors.orange), (self.sensorLogger.accZArray, GradientColors.blue)], title: "Acc")
-                    
-                    MultiLineChartView(data: [(self.sensorLogger.gyrXArray, GradientColors.green), (self.sensorLogger.gyrYArray, GradientColors.orange), (self.sensorLogger.gyrZArray, GradientColors.blue)], title: "Gyr")
-                }
-            }
-            
-            
+
         }.onTapGesture {
             // タップしたときにキーボードを下げる
             UIApplication.shared.endEditing()

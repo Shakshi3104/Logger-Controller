@@ -10,10 +10,13 @@ import Foundation
 import CoreMotion
 import Combine
 
+@available(iOS 14.0, *)
 class SensorLogManager: NSObject, ObservableObject {
     var motionManager: CMMotionManager?
+    var headphoneMotionManager: CMHeadphoneMotionManager?
     var logger = SensorLogger()
     
+    // iPhone
     @Published var accX = 0.0
     @Published var accY = 0.0
     @Published var accZ = 0.0
@@ -31,11 +34,21 @@ class SensorLogManager: NSObject, ObservableObject {
     @Published var gyrYArray = [0.0]
     @Published var gyrZArray = [0.0]
     
+    // Headphone
+    @Published var headAccX = 0.0
+    @Published var headAccY = 0.0
+    @Published var headAccZ = 0.0
+    @Published var headGyrX = 0.0
+    @Published var headGyrY = 0.0
+    @Published var headGyrZ = 0.0
+    
     var timer = Timer()
     
     override init() {
         super.init()
         self.motionManager = CMMotionManager()
+        self.headphoneMotionManager = CMHeadphoneMotionManager()
+        
     }
     
     @objc private func startLogSensor() {
@@ -102,6 +115,32 @@ class SensorLogManager: NSObject, ObservableObject {
             self.magZ = Double.nan
         }
         
+        
+        if let data = self.headphoneMotionManager?.deviceMotion {
+            let accX = data.gravity.x + data.userAcceleration.x
+            let accY = data.gravity.y + data.userAcceleration.y
+            let accZ = data.gravity.z + data.userAcceleration.z
+            
+            let gyrX = data.rotationRate.x
+            let gyrY = data.rotationRate.y
+            let gyrZ = data.rotationRate.z
+            
+            self.headAccX = accX
+            self.headAccY = accY
+            self.headAccZ = accZ
+            self.headGyrX = gyrX
+            self.headGyrY = gyrY
+            self.headGyrZ = gyrZ
+        }
+        else {
+            self.headAccX = Double.nan
+            self.headAccY = Double.nan
+            self.headAccZ = Double.nan
+            self.headGyrX = Double.nan
+            self.headGyrY = Double.nan
+            self.headGyrZ = Double.nan
+        }
+        
         // センサデータを記録する
         let timestamp = self.logger.getTimestamp()
         self.logger.logAccelerometerData(time: timestamp, x: self.accX, y: self.accY, z: self.accZ)
@@ -113,17 +152,23 @@ class SensorLogManager: NSObject, ObservableObject {
     }
     
     func startUpdate(_ freq: Double) {
-        if motionManager!.isAccelerometerAvailable {
-            motionManager?.startAccelerometerUpdates()
+        if self.motionManager!.isAccelerometerAvailable {
+            self.motionManager?.startAccelerometerUpdates()
         }
         
-        if motionManager!.isGyroAvailable {
-            motionManager?.startGyroUpdates()
+        if self.motionManager!.isGyroAvailable {
+            self.motionManager?.startGyroUpdates()
         }
         
-        if motionManager!.isMagnetometerAvailable {
-            motionManager?.startMagnetometerUpdates()
+        if self.motionManager!.isMagnetometerAvailable {
+            self.motionManager?.startMagnetometerUpdates()
         }
+        
+       
+        if self.headphoneMotionManager!.isDeviceMotionAvailable {
+            self.headphoneMotionManager?.startDeviceMotionUpdates()
+        }
+    
         
         // プル型でデータ取得
         self.timer = Timer.scheduledTimer(timeInterval: 1.0 / freq,
@@ -137,17 +182,22 @@ class SensorLogManager: NSObject, ObservableObject {
     func stopUpdate() {
         self.timer.invalidate()
         
-        if motionManager!.isAccelerometerActive {
-            motionManager?.stopAccelerometerUpdates()
+        if self.motionManager!.isAccelerometerActive {
+            self.motionManager?.stopAccelerometerUpdates()
         }
         
-        if motionManager!.isGyroActive {
-            motionManager?.stopGyroUpdates()
+        if self.motionManager!.isGyroActive {
+            self.motionManager?.stopGyroUpdates()
         }
         
-        if motionManager!.isMagnetometerActive {
-            motionManager?.stopMagnetometerUpdates()
+        if self.motionManager!.isMagnetometerActive {
+            self.motionManager?.stopMagnetometerUpdates()
         }
+        
+        if self.headphoneMotionManager!.isDeviceMotionActive {
+            self.headphoneMotionManager?.stopDeviceMotionUpdates()
+        }
+        
     }
     
 }
@@ -158,11 +208,17 @@ class SensorLogger {
     var gyroscopeData : String
     var magnetometerData : String
     
+    var headphoneAccelerometerData : String
+    var headphoneGyroscopeData : String
+    
     public init() {
         let column = "time,x,y,z\n"
         self.accelerometerData = column
         self.gyroscopeData = column
         self.magnetometerData = column
+        
+        self.headphoneAccelerometerData = column
+        self.headphoneGyroscopeData = column
     }
     
     // タイムスタンプを取得する
@@ -200,6 +256,24 @@ class SensorLogger {
         self.magnetometerData.append(contentsOf: line)
     }
     
+    func logHeadphoneAccelerometerData(time: String, x: Double, y: Double, z: Double) {
+        var line = time + ","
+        line.append(contentsOf: String(x) + ",")
+        line.append(contentsOf: String(y) + ",")
+        line.append(contentsOf: String(z) + "\n")
+        
+        self.headphoneAccelerometerData.append(contentsOf: line)
+    }
+    
+    func logHeadphoneGyroscopeData(time: String, x: Double, y: Double, z: Double) {
+        var line = time + ","
+        line.append(contentsOf: String(x) + ",")
+        line.append(contentsOf: String(y) + ",")
+        line.append(contentsOf: String(z) + "\n")
+        
+        self.headphoneGyroscopeData.append(contentsOf: line)
+    }
+    
     // 保存したファイルパスを取得する
     func getDataURLs(label: String, subject: String) -> [URL] {
         let format = DateFormatter()
@@ -215,11 +289,17 @@ class SensorLogger {
         let gyroFilepath = tmppath + "/gyroscope_\(apd).csv"
         let magnetFilepath = tmppath + "/magnetometer_\(apd).csv"
         
+        let headphoneAccelerometerFilepath = tmppath + "/headphone_accelerometer_\(apd).csv"
+        let headphoneGyroscopeFilepath = tmppath + "/headphone_gyroscope_\(apd).csv"
+        
         // ファイルを書き出す
         do {
             try self.accelerometerData.write(toFile: accelerometerFilepath, atomically: true, encoding: String.Encoding.utf8)
             try self.gyroscopeData.write(toFile: gyroFilepath, atomically: true, encoding: String.Encoding.utf8)
             try self.magnetometerData.write(toFile: magnetFilepath, atomically: true, encoding: String.Encoding.utf8)
+            
+            try self.headphoneAccelerometerData.write(toFile: headphoneAccelerometerFilepath, atomically: true, encoding: String.Encoding.utf8)
+            try self.headphoneGyroscopeData.write(toFile: headphoneGyroscopeFilepath, atomically: true, encoding: String.Encoding.utf8)
         }
         catch let error as NSError{
             print("Failure to Write File\n\(error)")
@@ -230,6 +310,9 @@ class SensorLogger {
         urls.append(URL(fileURLWithPath: accelerometerFilepath))
         urls.append(URL(fileURLWithPath: gyroFilepath))
         urls.append(URL(fileURLWithPath: magnetFilepath))
+        
+        urls.append(URL(fileURLWithPath: headphoneAccelerometerData))
+        urls.append(URL(fileURLWithPath: headphoneGyroscopeData))
         
         // データをリセットする
         self.resetData()
@@ -243,5 +326,8 @@ class SensorLogger {
         self.accelerometerData = column
         self.gyroscopeData = column
         self.magnetometerData = column
+        
+        self.headphoneAccelerometerData = column
+        self.headphoneGyroscopeData = column
     }
 }
