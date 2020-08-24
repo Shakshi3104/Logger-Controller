@@ -48,7 +48,6 @@ class SensorLogManager: NSObject, ObservableObject {
         super.init()
         self.motionManager = CMMotionManager()
         self.headphoneMotionManager = CMHeadphoneMotionManager()
-        
     }
     
     @objc private func startLogSensor() {
@@ -204,21 +203,24 @@ class SensorLogManager: NSObject, ObservableObject {
 
 
 class SensorLogger {
+    // iPhone本体
     var accelerometerData : String
     var gyroscopeData : String
     var magnetometerData : String
     
+    // ヘッドフォン
     var headphoneAccelerometerData : String
     var headphoneGyroscopeData : String
     
+    private final let column = "time,x,y,z\n"
+    
     public init() {
-        let column = "time,x,y,z\n"
-        self.accelerometerData = column
-        self.gyroscopeData = column
-        self.magnetometerData = column
+        self.accelerometerData = self.column
+        self.gyroscopeData = self.column
+        self.magnetometerData = self.column
         
-        self.headphoneAccelerometerData = column
-        self.headphoneGyroscopeData = column
+        self.headphoneAccelerometerData = self.column
+        self.headphoneGyroscopeData = self.column
     }
     
     // タイムスタンプを取得する
@@ -311,8 +313,8 @@ class SensorLogger {
         urls.append(URL(fileURLWithPath: gyroFilepath))
         urls.append(URL(fileURLWithPath: magnetFilepath))
         
-        urls.append(URL(fileURLWithPath: headphoneAccelerometerData))
-        urls.append(URL(fileURLWithPath: headphoneGyroscopeData))
+        urls.append(URL(fileURLWithPath: headphoneAccelerometerFilepath))
+        urls.append(URL(fileURLWithPath: headphoneGyroscopeFilepath))
         
         // データをリセットする
         self.resetData()
@@ -322,12 +324,11 @@ class SensorLogger {
     
     // データをリセットする
     func resetData() {
-        let column = "time,x,y,z\n"
-        self.accelerometerData = column
-        self.gyroscopeData = column
-        self.magnetometerData = column
+        self.accelerometerData = self.column
+        self.gyroscopeData = self.column
+        self.magnetometerData = self.column
         
-        self.headphoneAccelerometerData = column
-        self.headphoneGyroscopeData = column
+        self.headphoneAccelerometerData = self.column
+        self.headphoneGyroscopeData = self.column
     }
 }

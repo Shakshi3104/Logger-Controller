@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import SwiftUICharts
 
 struct ContentView: View {
     @State private var logStarting = false

@@ -15,8 +15,8 @@ This application also can measure headphone's acceleration data and gyroscope da
 - Note: Logger v4 (With Storyboard) is [this](https://github.com/Shakshi3104/LoggerGit).
 
 ## Requirements
-- iOS 13.1+
-- Xcode 11.5+
+- iOS 14.0+
+- Xcode 12.0+
 
 
 ## Update History
