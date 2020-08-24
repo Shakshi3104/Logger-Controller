@@ -163,6 +163,7 @@ class SensorLogManager: NSObject, ObservableObject {
             self.motionManager?.startMagnetometerUpdates()
         }
         
+        print("CMHeadphoneMotionManager.isDeviceMotionAvailable: \(self.headphoneMotionManager!.isDeviceMotionAvailable)")
        
         if self.headphoneMotionManager!.isDeviceMotionAvailable {
             self.headphoneMotionManager?.startDeviceMotionUpdates()
@@ -201,6 +202,16 @@ class SensorLogManager: NSObject, ObservableObject {
     
 }
 
+// センサーの種類
+enum SensorType {
+    case phoneAccelerometer
+    case phoneGyroscope
+    case phoneMagnetometer
+    case watchAccelerometer
+    case watchGyroscope
+    case headphoneAccelerometer
+    case headphoneGyroscope
+}
 
 class SensorLogger {
     // iPhone本体
@@ -332,3 +343,4 @@ class SensorLogger {
         self.headphoneGyroscopeData = self.column
     }
 }
+
