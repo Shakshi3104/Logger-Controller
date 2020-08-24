@@ -19,7 +19,7 @@ struct ContentView: View {
     
     @State private var viewChoise = 0
     
-    @ObservedObject var sensorLogger = SensorLogManager()
+    @ObservedObject var sensorLogger = SensorManager()
     @State private var backgroundTaskID: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 3104)
     
     var body: some View {
@@ -50,7 +50,9 @@ struct ContentView: View {
                 }
                 .sheet(isPresented: $isSharePresented, content: {
                         // ActivityViewControllerを表示
-                        ActivityViewController(activityItems: self.sensorLogger.logger.getDataURLs(label: self.label, subject: self.username), applicationActivities: nil)
+//                        ActivityViewController(activityItems: self.sensorLogger.logger.getDataURLs(label: self.label, subject: self.username), applicationActivities: nil)
+                    ActivityViewController(activityItems: self.sensorLogger.data.getURLs(label: self.label, subject: self.username), applicationActivities: nil)
+
                     })
                     .alert(isPresented: $isEmptySubjectLabel, content: {
                         Alert(title: Text("保存できません"), message: Text("Subject NameとLabelを入力してください"))

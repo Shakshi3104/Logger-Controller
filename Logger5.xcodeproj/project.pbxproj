@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		CE2F5D0023519CDE004E21D6 /* SenserLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F5CFF23519CDE004E21D6 /* SenserLogger.swift */; };
+		CE3782A924F389EE00FAECDF /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3782A824F389EE00FAECDF /* SensorData.swift */; };
 		CE936473235063EC0087CA57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE936472235063EC0087CA57 /* AppDelegate.swift */; };
 		CE936475235063EC0087CA57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE936474235063EC0087CA57 /* SceneDelegate.swift */; };
 		CE936477235063EC0087CA57 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE936476235063EC0087CA57 /* ContentView.swift */; };
@@ -20,6 +21,7 @@
 
 /* Begin PBXFileReference section */
 		CE2F5CFF23519CDE004E21D6 /* SenserLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenserLogger.swift; sourceTree = "<group>"; };
+		CE3782A824F389EE00FAECDF /* SensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
 		CE93646F235063EC0087CA57 /* Logger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Logger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE936472235063EC0087CA57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE936474235063EC0087CA57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -73,6 +75,7 @@
 				CE93647D235063F30087CA57 /* LaunchScreen.storyboard */,
 				CE936480235063F30087CA57 /* Info.plist */,
 				CE93647A235063F30087CA57 /* Preview Content */,
+				CE3782A824F389EE00FAECDF /* SensorData.swift */,
 			);
 			path = Logger5;
 			sourceTree = "<group>";
@@ -174,6 +177,7 @@
 				CE936473235063EC0087CA57 /* AppDelegate.swift in Sources */,
 				CE2F5D0023519CDE004E21D6 /* SenserLogger.swift in Sources */,
 				CE936475235063EC0087CA57 /* SceneDelegate.swift in Sources */,
+				CE3782A924F389EE00FAECDF /* SensorData.swift in Sources */,
 				CE936477235063EC0087CA57 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -10,11 +10,19 @@ import Foundation
 import CoreMotion
 import Combine
 
+
+func getTimestamp() -> String {
+    let format = DateFormatter()
+    format.dateFormat = "yyyy/MM/dd HH:mm:ss.SSS"
+    return format.string(from: Date())
+}
+
 @available(iOS 14.0, *)
-class SensorLogManager: NSObject, ObservableObject {
+class SensorManager: NSObject, ObservableObject {
     var motionManager: CMMotionManager?
     var headphoneMotionManager: CMHeadphoneMotionManager?
     var logger = SensorLogger()
+    var data = SensorData()
     
     // iPhone
     @Published var accX = 0.0
@@ -141,10 +149,23 @@ class SensorLogManager: NSObject, ObservableObject {
         }
         
         // センサデータを記録する
-        let timestamp = self.logger.getTimestamp()
+        let timestamp = getTimestamp()
+        
+        /* deprecated **/
         self.logger.logAccelerometerData(time: timestamp, x: self.accX, y: self.accY, z: self.accZ)
         self.logger.logGyroscopeData(time: timestamp, x: self.gyrX, y: self.gyrY, z: self.gyrZ)
         self.logger.logMagnetometerData(time: timestamp, x: self.magX, y: self.magY, z: self.magZ)
+        
+        self.logger.logHeadphoneAccelerometerData(time: timestamp, x: self.headAccX, y: self.headAccY, z: self.headAccZ)
+        self.logger.logHeadphoneGyroscopeData(time: timestamp, x: self.headGyrX, y: self.headGyrY, z: self.headGyrZ)
+        
+        /* instead **/
+        self.data.append(time: timestamp, x: self.accX, y: self.accY, z: self.accZ, sensorType: .phoneAccelerometer)
+        self.data.append(time: timestamp, x: self.gyrX, y: self.gyrY, z: self.gyrZ, sensorType: .phoneGyroscope)
+        self.data.append(time: timestamp, x: self.magX, y: self.magY, z: self.magZ, sensorType: .phoneMagnetometer)
+        
+        self.data.append(time: timestamp, x: self.headAccX, y: self.headAccY, z: self.headAccZ, sensorType: .headphoneAccelerometer)
+        self.data.append(time: timestamp, x: self.headGyrX, y: self.headGyrY, z: self.headGyrZ, sensorType: .headphoneGyroscope)
         
         print(timestamp + ", \(self.headAccX), \(self.headAccY), \(self.headAccZ)")
         
@@ -202,17 +223,8 @@ class SensorLogManager: NSObject, ObservableObject {
     
 }
 
-// センサーの種類
-enum SensorType {
-    case phoneAccelerometer
-    case phoneGyroscope
-    case phoneMagnetometer
-    case watchAccelerometer
-    case watchGyroscope
-    case headphoneAccelerometer
-    case headphoneGyroscope
-}
-
+@available(iOS, introduced: 13.0, deprecated: 14.0,
+message: "SensorLogger is deprecated. Use SensorData instead.")
 class SensorLogger {
     // iPhone本体
     var accelerometerData : String
