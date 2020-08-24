@@ -4,6 +4,7 @@ This application can measure acceleraton data, gyroscope data and magnetic data,
 
 This application also can measure headphone's acceleration data and gyroscope data in iOS 14.
 
+- Note: Apparently, [CMHeadphoneMotionManager](https://developer.apple.com/documentation/coremotion/cmheadphonemotionmanager) is not yet implemented within Core Motion. So, maybe this application is not working.
 
 ![screen](materials/top1.png) | ![screen_chart](materials/top2.png) 
 :-:|:-:
