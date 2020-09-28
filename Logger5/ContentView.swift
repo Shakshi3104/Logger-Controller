@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import SwiftUICharts
 
 struct ContentView: View {
     @State private var logStarting = false
@@ -20,7 +19,7 @@ struct ContentView: View {
     
     @State private var viewChoise = 0
     
-    @ObservedObject var sensorLogger = SensorLogManager()
+    @ObservedObject var sensorLogger = SensorManager()
     @State private var backgroundTaskID: UIBackgroundTaskIdentifier = UIBackgroundTaskIdentifier(rawValue: 3104)
     
     var body: some View {
@@ -51,7 +50,9 @@ struct ContentView: View {
                 }
                 .sheet(isPresented: $isSharePresented, content: {
                         // ActivityViewControllerを表示
-                        ActivityViewController(activityItems: self.sensorLogger.logger.getDataURLs(label: self.label, subject: self.username), applicationActivities: nil)
+//                        ActivityViewController(activityItems: self.sensorLogger.logger.getDataURLs(label: self.label, subject: self.username), applicationActivities: nil)
+                    ActivityViewController(activityItems: self.sensorLogger.data.getURLs(label: self.label, subject: self.username), applicationActivities: nil)
+
                     })
                     .alert(isPresented: $isEmptySubjectLabel, content: {
                         Alert(title: Text("保存できません"), message: Text("Subject NameとLabelを入力してください"))
@@ -106,18 +107,15 @@ struct ContentView: View {
                         .padding(.horizontal)
                 }.padding(.horizontal)
                 
-                Picker(selection: $viewChoise, label: Text("View")) {
-                    Text("Raw").tag(0)
-                    Text("Chart").tag(1)
-                }.pickerStyle(SegmentedPickerStyle())
-                    .padding(.horizontal, 25)
-                    .padding(.vertical, 20)
     
             }.padding(.vertical, 20)
             
-            if self.viewChoise == 0 {
-                // センサー値を表示
-                VStack(alignment: .leading) {
+            
+        // センサー値を表示
+            VStack {
+                VStack {
+                    Text("iPhone").font(.headline)
+                    
                     VStack(alignment: .leading) {
                         Text("Accelerometer")
                             .font(.headline)
@@ -134,7 +132,7 @@ struct ContentView: View {
                             
                         }.padding(.horizontal)
                     }.padding(.horizontal, 25)
-                        .padding(.vertical, 20)
+                        .padding(.vertical, 5)
                     
                     VStack(alignment: .leading) {
                         Text("Gyroscope")
@@ -151,7 +149,7 @@ struct ContentView: View {
                                 .multilineTextAlignment(.leading)
                         }.padding(.horizontal)
                     }.padding(.horizontal, 25)
-                        .padding(.vertical, 20)
+                        .padding(.vertical, 5)
                     
                     
                     VStack(alignment: .leading) {
@@ -169,19 +167,49 @@ struct ContentView: View {
                                 .multilineTextAlignment(.leading)
                         }.padding(.horizontal)
                     }.padding(.horizontal, 25)
-                        .padding(.vertical, 20)
-                    
-                }
+                        .padding(.vertical, 5)
+                }.padding(.vertical, 5)
+                
+                VStack {
+                     Text("AirPods").font(.headline)
+
+                     VStack(alignment: .leading) {
+                         Text("Accelerometer")
+                             .font(.headline)
+
+                         HStack {
+                             Text(String(format: "%.3f", self.sensorLogger.headAccX))
+                                 .multilineTextAlignment(.leading)
+                             Spacer()
+                             Text(String(format: "%.3f", self.sensorLogger.headAccY))
+                                 .multilineTextAlignment(.leading)
+                             Spacer()
+                             Text(String(format: "%.3f", self.sensorLogger.headAccZ))
+                                 .multilineTextAlignment(.leading)
+
+                         }.padding(.horizontal)
+                     }.padding(.horizontal, 25)
+                         .padding(.vertical, 5)
+
+                     VStack(alignment: .leading) {
+                         Text("Gyroscope")
+                         .font(.headline)
+
+                         HStack {
+                             Text(String(format: "%.3f", self.sensorLogger.headGyrX))
+                                 .multilineTextAlignment(.leading)
+                             Spacer()
+                             Text(String(format: "%.3f", self.sensorLogger.headGyrY))
+                                 .multilineTextAlignment(.leading)
+                             Spacer()
+                             Text(String(format: "%.3f", self.sensorLogger.headGyrZ))
+                                 .multilineTextAlignment(.leading)
+                         }.padding(.horizontal)
+                     }.padding(.horizontal, 25)
+                         .padding(.vertical, 5)
+                }.padding(.vertical, 5)
             }
-            else if self.viewChoise == 1 {
-                HStack {
-                    MultiLineChartView(data: [(self.sensorLogger.accXArray, GradientColors.green), (self.sensorLogger.accYArray, GradientColors.orange), (self.sensorLogger.accZArray, GradientColors.blue)], title: "Acc")
-                    
-                    MultiLineChartView(data: [(self.sensorLogger.gyrXArray, GradientColors.green), (self.sensorLogger.gyrYArray, GradientColors.orange), (self.sensorLogger.gyrZArray, GradientColors.blue)], title: "Gyr")
-                }
-            }
-            
-            
+
         }.onTapGesture {
             // タップしたときにキーボードを下げる
             UIApplication.shared.endEditing()

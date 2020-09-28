@@ -3,27 +3,25 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
-		CE25BFDE2362D3EB00D51F08 /* MotionSensorLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE25BFDD2362D3EB00D51F08 /* MotionSensorLogger.swift */; };
 		CE2F5D0023519CDE004E21D6 /* SenserLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2F5CFF23519CDE004E21D6 /* SenserLogger.swift */; };
-		CE5A7958248392B0006A0AB0 /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = CE5A7957248392B0006A0AB0 /* SwiftUICharts */; };
+		CE3782A924F389EE00FAECDF /* SensorData.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3782A824F389EE00FAECDF /* SensorData.swift */; };
 		CE936473235063EC0087CA57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE936472235063EC0087CA57 /* AppDelegate.swift */; };
 		CE936475235063EC0087CA57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE936474235063EC0087CA57 /* SceneDelegate.swift */; };
 		CE936477235063EC0087CA57 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE936476235063EC0087CA57 /* ContentView.swift */; };
 		CE936479235063F30087CA57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE936478235063F30087CA57 /* Assets.xcassets */; };
 		CE93647C235063F30087CA57 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE93647B235063F30087CA57 /* Preview Assets.xcassets */; };
 		CE93647F235063F30087CA57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE93647D235063F30087CA57 /* LaunchScreen.storyboard */; };
-		CEF12F6A24C7C676001DA115 /* IMG_3837.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CEF12F6724C7C676001DA115 /* IMG_3837.PNG */; };
-		CEF12F6B24C7C676001DA115 /* IMG_3836.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CEF12F6824C7C676001DA115 /* IMG_3836.PNG */; };
-		CEF12F6C24C7C676001DA115 /* IMG_3838.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CEF12F6924C7C676001DA115 /* IMG_3838.PNG */; };
+		CEF9B9FB24EFA5F5000D445E /* top1.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9B9F924EFA5F5000D445E /* top1.png */; };
+		CEF9B9FC24EFA5F5000D445E /* top2.png in Resources */ = {isa = PBXBuildFile; fileRef = CEF9B9FA24EFA5F5000D445E /* top2.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		CE25BFDD2362D3EB00D51F08 /* MotionSensorLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MotionSensorLogger.swift; sourceTree = "<group>"; };
 		CE2F5CFF23519CDE004E21D6 /* SenserLogger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SenserLogger.swift; sourceTree = "<group>"; };
+		CE3782A824F389EE00FAECDF /* SensorData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SensorData.swift; sourceTree = "<group>"; };
 		CE93646F235063EC0087CA57 /* Logger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Logger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE936472235063EC0087CA57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE936474235063EC0087CA57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -33,9 +31,8 @@
 		CE93647E235063F30087CA57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE936480235063F30087CA57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF12F6524C7C36F001DA115 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		CEF12F6724C7C676001DA115 /* IMG_3837.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_3837.PNG; sourceTree = "<group>"; };
-		CEF12F6824C7C676001DA115 /* IMG_3836.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_3836.PNG; sourceTree = "<group>"; };
-		CEF12F6924C7C676001DA115 /* IMG_3838.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_3838.PNG; sourceTree = "<group>"; };
+		CEF9B9F924EFA5F5000D445E /* top1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top1.png; sourceTree = "<group>"; };
+		CEF9B9FA24EFA5F5000D445E /* top2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = top2.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +40,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE5A7958248392B0006A0AB0 /* SwiftUICharts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -79,7 +75,7 @@
 				CE93647D235063F30087CA57 /* LaunchScreen.storyboard */,
 				CE936480235063F30087CA57 /* Info.plist */,
 				CE93647A235063F30087CA57 /* Preview Content */,
-				CE25BFDD2362D3EB00D51F08 /* MotionSensorLogger.swift */,
+				CE3782A824F389EE00FAECDF /* SensorData.swift */,
 			);
 			path = Logger5;
 			sourceTree = "<group>";
@@ -95,9 +91,8 @@
 		CEF12F6624C7C60A001DA115 /* materials */ = {
 			isa = PBXGroup;
 			children = (
-				CEF12F6824C7C676001DA115 /* IMG_3836.PNG */,
-				CEF12F6724C7C676001DA115 /* IMG_3837.PNG */,
-				CEF12F6924C7C676001DA115 /* IMG_3838.PNG */,
+				CEF9B9F924EFA5F5000D445E /* top1.png */,
+				CEF9B9FA24EFA5F5000D445E /* top2.png */,
 			);
 			path = materials;
 			sourceTree = "<group>";
@@ -119,7 +114,6 @@
 			);
 			name = Logger5;
 			packageProductDependencies = (
-				CE5A7957248392B0006A0AB0 /* SwiftUICharts */,
 			);
 			productName = Logger5;
 			productReference = CE93646F235063EC0087CA57 /* Logger.app */;
@@ -132,7 +126,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1110;
-				LastUpgradeCheck = 1110;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "MacBook Air";
 				TargetAttributes = {
 					CE93646E235063EC0087CA57 = {
@@ -150,7 +144,6 @@
 			);
 			mainGroup = CE936466235063EC0087CA57;
 			packageReferences = (
-				CE5A7956248392B0006A0AB0 /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = CE936470235063EC0087CA57 /* Products */;
 			projectDirPath = "";
@@ -166,10 +159,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEF12F6A24C7C676001DA115 /* IMG_3837.PNG in Resources */,
+				CEF9B9FC24EFA5F5000D445E /* top2.png in Resources */,
 				CE93647F235063F30087CA57 /* LaunchScreen.storyboard in Resources */,
-				CEF12F6B24C7C676001DA115 /* IMG_3836.PNG in Resources */,
-				CEF12F6C24C7C676001DA115 /* IMG_3838.PNG in Resources */,
+				CEF9B9FB24EFA5F5000D445E /* top1.png in Resources */,
 				CE93647C235063F30087CA57 /* Preview Assets.xcassets in Resources */,
 				CE936479235063F30087CA57 /* Assets.xcassets in Resources */,
 			);
@@ -185,7 +177,7 @@
 				CE936473235063EC0087CA57 /* AppDelegate.swift in Sources */,
 				CE2F5D0023519CDE004E21D6 /* SenserLogger.swift in Sources */,
 				CE936475235063EC0087CA57 /* SceneDelegate.swift in Sources */,
-				CE25BFDE2362D3EB00D51F08 /* MotionSensorLogger.swift in Sources */,
+				CE3782A924F389EE00FAECDF /* SensorData.swift in Sources */,
 				CE936477235063EC0087CA57 /* ContentView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -230,6 +222,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -254,7 +247,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -290,6 +283,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -308,7 +302,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -327,6 +321,7 @@
 				DEVELOPMENT_TEAM = WHBF4Z49B6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Logger5/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -348,6 +343,7 @@
 				DEVELOPMENT_TEAM = WHBF4Z49B6;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = Logger5/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -382,25 +378,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		CE5A7956248392B0006A0AB0 /* XCRemoteSwiftPackageReference "ChartView" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/AppPear/ChartView.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 1.5.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		CE5A7957248392B0006A0AB0 /* SwiftUICharts */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = CE5A7956248392B0006A0AB0 /* XCRemoteSwiftPackageReference "ChartView" */;
-			productName = SwiftUICharts;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE936467235063EC0087CA57 /* Project object */;
 }
