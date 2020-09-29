@@ -21,7 +21,6 @@ func getTimestamp() -> String {
 class SensorManager: NSObject, ObservableObject {
     var motionManager: CMMotionManager?
     var headphoneMotionManager: CMHeadphoneMotionManager?
-    var logger = SensorLogger()
     var data = SensorData()
     
     // iPhone
@@ -151,15 +150,6 @@ class SensorManager: NSObject, ObservableObject {
         // センサデータを記録する
         let timestamp = getTimestamp()
         
-        /* deprecated **/
-        self.logger.logAccelerometerData(time: timestamp, x: self.accX, y: self.accY, z: self.accZ)
-        self.logger.logGyroscopeData(time: timestamp, x: self.gyrX, y: self.gyrY, z: self.gyrZ)
-        self.logger.logMagnetometerData(time: timestamp, x: self.magX, y: self.magY, z: self.magZ)
-        
-        self.logger.logHeadphoneAccelerometerData(time: timestamp, x: self.headAccX, y: self.headAccY, z: self.headAccZ)
-        self.logger.logHeadphoneGyroscopeData(time: timestamp, x: self.headGyrX, y: self.headGyrY, z: self.headGyrZ)
-        
-        /* instead **/
         self.data.append(time: timestamp, x: self.accX, y: self.accY, z: self.accZ, sensorType: .phoneAccelerometer)
         self.data.append(time: timestamp, x: self.gyrX, y: self.gyrY, z: self.gyrZ, sensorType: .phoneGyroscope)
         self.data.append(time: timestamp, x: self.magX, y: self.magY, z: self.magZ, sensorType: .phoneMagnetometer)
@@ -222,137 +212,3 @@ class SensorManager: NSObject, ObservableObject {
     }
     
 }
-
-@available(iOS, introduced: 13.0, deprecated: 14.0,
-message: "SensorLogger is deprecated. Use SensorData instead.")
-class SensorLogger {
-    // iPhone本体
-    var accelerometerData : String
-    var gyroscopeData : String
-    var magnetometerData : String
-    
-    // ヘッドフォン
-    var headphoneAccelerometerData : String
-    var headphoneGyroscopeData : String
-    
-    private final let column = "time,x,y,z\n"
-    
-    public init() {
-        self.accelerometerData = self.column
-        self.gyroscopeData = self.column
-        self.magnetometerData = self.column
-        
-        self.headphoneAccelerometerData = self.column
-        self.headphoneGyroscopeData = self.column
-    }
-    
-    // タイムスタンプを取得する
-    func getTimestamp() -> String {
-        let format = DateFormatter()
-        format.dateFormat = "yyyy/MM/dd HH:mm:ss.SSS"
-        return format.string(from: Date())
-    }
-    
-    /* センサデータを保存する */
-    func logAccelerometerData(time: String, x: Double, y: Double, z: Double) {
-        var line = time + ","
-        line.append(contentsOf: String(x) + ",")
-        line.append(contentsOf: String(y) + ",")
-        line.append(contentsOf: String(z) + "\n")
-        
-        self.accelerometerData.append(contentsOf: line)
-    }
-    
-    func logGyroscopeData(time: String, x: Double, y: Double, z: Double) {
-        var line = time + ","
-        line.append(contentsOf: String(x) + ",")
-        line.append(contentsOf: String(y) + ",")
-        line.append(contentsOf: String(z) + "\n")
-        
-        self.gyroscopeData.append(contentsOf: line)
-    }
-    
-    func logMagnetometerData(time: String, x: Double, y: Double, z: Double) {
-        var line = time + ","
-        line.append(contentsOf: String(x) + ",")
-        line.append(contentsOf: String(y) + ",")
-        line.append(contentsOf: String(z) + "\n")
-        
-        self.magnetometerData.append(contentsOf: line)
-    }
-    
-    func logHeadphoneAccelerometerData(time: String, x: Double, y: Double, z: Double) {
-        var line = time + ","
-        line.append(contentsOf: String(x) + ",")
-        line.append(contentsOf: String(y) + ",")
-        line.append(contentsOf: String(z) + "\n")
-        
-        self.headphoneAccelerometerData.append(contentsOf: line)
-    }
-    
-    func logHeadphoneGyroscopeData(time: String, x: Double, y: Double, z: Double) {
-        var line = time + ","
-        line.append(contentsOf: String(x) + ",")
-        line.append(contentsOf: String(y) + ",")
-        line.append(contentsOf: String(z) + "\n")
-        
-        self.headphoneGyroscopeData.append(contentsOf: line)
-    }
-    
-    // 保存したファイルパスを取得する
-    func getDataURLs(label: String, subject: String) -> [URL] {
-        let format = DateFormatter()
-        format.dateFormat = "yyyyMMddHHmmss"
-        let time = format.string(from: Date())
-        
-        /* 一時ファイルを保存する場所 */
-        let tmppath = NSHomeDirectory() + "/tmp"
-        
-        let apd = "\(time)_\(label)_\(subject)" // 付加する文字列(時間+ラベル+ユーザ名)
-        // ファイル名を生成
-        let accelerometerFilepath = tmppath + "/accelermeter_\(apd).csv"
-        let gyroFilepath = tmppath + "/gyroscope_\(apd).csv"
-        let magnetFilepath = tmppath + "/magnetometer_\(apd).csv"
-        
-        let headphoneAccelerometerFilepath = tmppath + "/headphone_accelerometer_\(apd).csv"
-        let headphoneGyroscopeFilepath = tmppath + "/headphone_gyroscope_\(apd).csv"
-        
-        // ファイルを書き出す
-        do {
-            try self.accelerometerData.write(toFile: accelerometerFilepath, atomically: true, encoding: String.Encoding.utf8)
-            try self.gyroscopeData.write(toFile: gyroFilepath, atomically: true, encoding: String.Encoding.utf8)
-            try self.magnetometerData.write(toFile: magnetFilepath, atomically: true, encoding: String.Encoding.utf8)
-            
-            try self.headphoneAccelerometerData.write(toFile: headphoneAccelerometerFilepath, atomically: true, encoding: String.Encoding.utf8)
-            try self.headphoneGyroscopeData.write(toFile: headphoneGyroscopeFilepath, atomically: true, encoding: String.Encoding.utf8)
-        }
-        catch let error as NSError{
-            print("Failure to Write File\n\(error)")
-        }
-        
-        /* 書き出したcsvファイルの場所を取得 */
-        var urls = [URL]()
-        urls.append(URL(fileURLWithPath: accelerometerFilepath))
-        urls.append(URL(fileURLWithPath: gyroFilepath))
-        urls.append(URL(fileURLWithPath: magnetFilepath))
-        
-        urls.append(URL(fileURLWithPath: headphoneAccelerometerFilepath))
-        urls.append(URL(fileURLWithPath: headphoneGyroscopeFilepath))
-        
-        // データをリセットする
-        self.resetData()
-        
-        return urls
-    }
-    
-    // データをリセットする
-    func resetData() {
-        self.accelerometerData = self.column
-        self.gyroscopeData = self.column
-        self.magnetometerData = self.column
-        
-        self.headphoneAccelerometerData = self.column
-        self.headphoneGyroscopeData = self.column
-    }
-}
-
