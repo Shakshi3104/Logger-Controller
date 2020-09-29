@@ -17,10 +17,8 @@ func getTimestamp() -> String {
     return format.string(from: Date())
 }
 
-@available(iOS 14.0, *)
 class SensorManager: NSObject, ObservableObject {
     var motionManager: CMMotionManager?
-    var headphoneMotionManager: CMHeadphoneMotionManager?
     var data = SensorData()
     
     // iPhone
@@ -34,20 +32,12 @@ class SensorManager: NSObject, ObservableObject {
     @Published var magY = 0.0
     @Published var magZ = 0.0
     
-    // Headphone
-    @Published var headAccX = 0.0
-    @Published var headAccY = 0.0
-    @Published var headAccZ = 0.0
-    @Published var headGyrX = 0.0
-    @Published var headGyrY = 0.0
-    @Published var headGyrZ = 0.0
     
     var timer = Timer()
     
     override init() {
         super.init()
         self.motionManager = CMMotionManager()
-        self.headphoneMotionManager = CMHeadphoneMotionManager()
     }
     
     @objc private func startLogSensor() {
@@ -96,44 +86,12 @@ class SensorManager: NSObject, ObservableObject {
             self.magZ = Double.nan
         }
         
-        
-        if let data = self.headphoneMotionManager?.deviceMotion {
-            let accX = data.gravity.x + data.userAcceleration.x
-            let accY = data.gravity.y + data.userAcceleration.y
-            let accZ = data.gravity.z + data.userAcceleration.z
-            
-            let gyrX = data.rotationRate.x
-            let gyrY = data.rotationRate.y
-            let gyrZ = data.rotationRate.z
-            
-            self.headAccX = accX
-            self.headAccY = accY
-            self.headAccZ = accZ
-            self.headGyrX = gyrX
-            self.headGyrY = gyrY
-            self.headGyrZ = gyrZ
-        }
-        else {
-            self.headAccX = Double.nan
-            self.headAccY = Double.nan
-            self.headAccZ = Double.nan
-            self.headGyrX = Double.nan
-            self.headGyrY = Double.nan
-            self.headGyrZ = Double.nan
-        }
-        
         // センサデータを記録する
         let timestamp = getTimestamp()
         
         self.data.append(time: timestamp, x: self.accX, y: self.accY, z: self.accZ, sensorType: .phoneAccelerometer)
         self.data.append(time: timestamp, x: self.gyrX, y: self.gyrY, z: self.gyrZ, sensorType: .phoneGyroscope)
         self.data.append(time: timestamp, x: self.magX, y: self.magY, z: self.magZ, sensorType: .phoneMagnetometer)
-        
-        self.data.append(time: timestamp, x: self.headAccX, y: self.headAccY, z: self.headAccZ, sensorType: .headphoneAccelerometer)
-        self.data.append(time: timestamp, x: self.headGyrX, y: self.headGyrY, z: self.headGyrZ, sensorType: .headphoneGyroscope)
-        
-        print(timestamp + ", \(self.headAccX), \(self.headAccY), \(self.headAccZ)")
-        
     }
     
     func startUpdate(_ freq: Double) {
@@ -148,13 +106,6 @@ class SensorManager: NSObject, ObservableObject {
         if self.motionManager!.isMagnetometerAvailable {
             self.motionManager?.startMagnetometerUpdates()
         }
-        
-        print("CMHeadphoneMotionManager.isDeviceMotionAvailable: \(self.headphoneMotionManager!.isDeviceMotionAvailable)")
-       
-        if self.headphoneMotionManager!.isDeviceMotionAvailable {
-            self.headphoneMotionManager?.startDeviceMotionUpdates()
-        }
-    
         
         // プル型でデータ取得
         self.timer = Timer.scheduledTimer(timeInterval: 1.0 / freq,
@@ -179,11 +130,6 @@ class SensorManager: NSObject, ObservableObject {
         if self.motionManager!.isMagnetometerActive {
             self.motionManager?.stopMagnetometerUpdates()
         }
-        
-        if self.headphoneMotionManager!.isDeviceMotionActive {
-            self.headphoneMotionManager?.stopDeviceMotionUpdates()
-        }
-        
     }
     
 }

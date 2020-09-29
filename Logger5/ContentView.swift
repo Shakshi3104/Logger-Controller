@@ -169,45 +169,6 @@ struct ContentView: View {
                     }.padding(.horizontal, 25)
                         .padding(.vertical, 5)
                 }.padding(.vertical, 5)
-                
-                VStack {
-                     Text("AirPods").font(.headline)
-
-                     VStack(alignment: .leading) {
-                         Text("Accelerometer")
-                             .font(.headline)
-
-                         HStack {
-                             Text(String(format: "%.3f", self.sensorLogger.headAccX))
-                                 .multilineTextAlignment(.leading)
-                             Spacer()
-                             Text(String(format: "%.3f", self.sensorLogger.headAccY))
-                                 .multilineTextAlignment(.leading)
-                             Spacer()
-                             Text(String(format: "%.3f", self.sensorLogger.headAccZ))
-                                 .multilineTextAlignment(.leading)
-
-                         }.padding(.horizontal)
-                     }.padding(.horizontal, 25)
-                         .padding(.vertical, 5)
-
-                     VStack(alignment: .leading) {
-                         Text("Gyroscope")
-                         .font(.headline)
-
-                         HStack {
-                             Text(String(format: "%.3f", self.sensorLogger.headGyrX))
-                                 .multilineTextAlignment(.leading)
-                             Spacer()
-                             Text(String(format: "%.3f", self.sensorLogger.headGyrY))
-                                 .multilineTextAlignment(.leading)
-                             Spacer()
-                             Text(String(format: "%.3f", self.sensorLogger.headGyrZ))
-                                 .multilineTextAlignment(.leading)
-                         }.padding(.horizontal)
-                     }.padding(.horizontal, 25)
-                         .padding(.vertical, 5)
-                }.padding(.vertical, 5)
             }
 
         }.onTapGesture {
