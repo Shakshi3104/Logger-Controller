@@ -6,7 +6,7 @@ This application can measure acceleraton data, gyroscope data and magnetic data,
 :-:|:-:
 
 ## Version
-5.1.2
+5.2.0
 
 - Note: Logger v4 (With Storyboard) is [this](https://github.com/Shakshi3104/LoggerGit).
 
