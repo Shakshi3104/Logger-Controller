@@ -24,3 +24,4 @@ This application can measure acceleraton data, gyroscope data and magnetic data,
 |5.1.0|2020/5/30| Add line chart|
 |5.1.1|2020/8/1| Add Haptic Engine feedback|
 |5.1.2|2020/9/29| Improve internal implementation|
+|5.2.0|2020/10/11| Added the function to change the sampling frequency in Settings app |

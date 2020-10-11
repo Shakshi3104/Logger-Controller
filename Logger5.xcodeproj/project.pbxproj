@@ -15,8 +15,7 @@
 		CE936479235063F30087CA57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE936478235063F30087CA57 /* Assets.xcassets */; };
 		CE93647C235063F30087CA57 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE93647B235063F30087CA57 /* Preview Assets.xcassets */; };
 		CE93647F235063F30087CA57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE93647D235063F30087CA57 /* LaunchScreen.storyboard */; };
-		CEA2AE8D2522ECAB00F6820A /* IMG_4307.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CEA2AE8B2522ECA200F6820A /* IMG_4307.PNG */; };
-		CEA2AE8E2522ECAB00F6820A /* IMG_4308.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CEA2AE8C2522ECAB00F6820A /* IMG_4308.PNG */; };
+		CEE5A6A52532E784004BA92F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CEE5A6A42532E77D004BA92F /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +31,7 @@
 		CE936480235063F30087CA57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEA2AE8B2522ECA200F6820A /* IMG_4307.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_4307.PNG; sourceTree = "<group>"; };
 		CEA2AE8C2522ECAB00F6820A /* IMG_4308.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_4308.PNG; sourceTree = "<group>"; };
+		CEE5A6A42532E77D004BA92F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		CEF12F6524C7C36F001DA115 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -49,6 +49,7 @@
 		CE936466235063EC0087CA57 = {
 			isa = PBXGroup;
 			children = (
+				CEE5A6A42532E77D004BA92F /* Settings.bundle */,
 				CEF12F6624C7C60A001DA115 /* materials */,
 				CEF12F6524C7C36F001DA115 /* README.md */,
 				CE936471235063EC0087CA57 /* Logger5 */,
@@ -159,9 +160,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEA2AE8E2522ECAB00F6820A /* IMG_4308.PNG in Resources */,
+				CEE5A6A52532E784004BA92F /* Settings.bundle in Resources */,
 				CE93647F235063F30087CA57 /* LaunchScreen.storyboard in Resources */,
-				CEA2AE8D2522ECAB00F6820A /* IMG_4307.PNG in Resources */,
 				CE93647C235063F30087CA57 /* Preview Assets.xcassets in Resources */,
 				CE936479235063F30087CA57 /* Assets.xcassets in Resources */,
 			);
