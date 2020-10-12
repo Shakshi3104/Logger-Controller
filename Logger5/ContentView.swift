@@ -50,7 +50,6 @@ struct ContentView: View {
                 }
                 .sheet(isPresented: $isSharePresented, content: {
                         // ActivityViewControllerを表示
-//                        ActivityViewController(activityItems: self.sensorLogger.logger.getDataURLs(label: self.label, subject: self.username), applicationActivities: nil)
                     ActivityViewController(activityItems: self.sensorLogger.data.getURLs(label: self.label, subject: self.username), applicationActivities: nil)
 
                     })
@@ -123,7 +122,10 @@ struct ContentView: View {
         // センサー値を表示
             VStack {
                 VStack {
-                    Text("iPhone").font(.headline)
+                    HStack {
+                        Image(systemName: "iphone")
+                        Text("iPhone").font(.headline)
+                    }
                     
                     VStack(alignment: .leading) {
                         Text("Accelerometer")
@@ -141,7 +143,7 @@ struct ContentView: View {
                             
                         }.padding(.horizontal)
                     }.padding(.horizontal, 25)
-                        .padding(.vertical, 5)
+                        .padding(.vertical, 3)
                     
                     VStack(alignment: .leading) {
                         Text("Gyroscope")
@@ -158,7 +160,7 @@ struct ContentView: View {
                                 .multilineTextAlignment(.leading)
                         }.padding(.horizontal)
                     }.padding(.horizontal, 25)
-                        .padding(.vertical, 5)
+                        .padding(.vertical, 3)
                     
                     
                     VStack(alignment: .leading) {
@@ -176,8 +178,57 @@ struct ContentView: View {
                                 .multilineTextAlignment(.leading)
                         }.padding(.horizontal)
                     }.padding(.horizontal, 25)
-                        .padding(.vertical, 5)
+                        .padding(.vertical, 3)
                 }.padding(.vertical, 5)
+                
+                VStack {
+                    HStack {
+                        if self.sensorLogger.isControllerConnected {
+                            Image(systemName: "gamecontroller.fill").foregroundColor(.green)
+                        }
+                        else {
+                            Image(systemName: "gamecontroller")
+                            
+                        }
+                        Text("Game Controller").font(.headline)
+                    }
+                    
+                    VStack(alignment: .leading) {
+                        Text("Accelerometer")
+                            .font(.headline)
+                        
+                        HStack {
+                            Text(String(format: "%.3f", self.sensorLogger.controllerAccX))
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(String(format: "%.3f", self.sensorLogger.controllerAccY))
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(String(format: "%.3f", self.sensorLogger.controllerAccZ))
+                                .multilineTextAlignment(.leading)
+                            
+                        }.padding(.horizontal)
+                    }.padding(.horizontal, 25)
+                        .padding(.vertical, 3)
+                    
+                    VStack(alignment: .leading) {
+                        Text("Gyroscope")
+                        .font(.headline)
+                        
+                        HStack {
+                            Text(String(format: "%.3f", self.sensorLogger.controllerGyrX))
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(String(format: "%.3f", self.sensorLogger.controllerGyrY))
+                                .multilineTextAlignment(.leading)
+                            Spacer()
+                            Text(String(format: "%.3f", self.sensorLogger.controllerGyrZ))
+                                .multilineTextAlignment(.leading)
+                        }.padding(.horizontal)
+                    }.padding(.horizontal, 25)
+                        .padding(.vertical, 3)
+                    
+                }
             }
 
         }.onTapGesture {

@@ -10,6 +10,8 @@ import Foundation
 import CoreMotion
 import Combine
 
+import GameController
+
 
 func getTimestamp() -> String {
     let format = DateFormatter()
@@ -17,9 +19,11 @@ func getTimestamp() -> String {
     return format.string(from: Date())
 }
 
-class SensorManager: NSObject, ObservableObject {
+class SensorManager: NSObject, ObservableObject, ReactToMotionEvents {
     var motionManager: CMMotionManager?
     var data = SensorData()
+    
+    var controllers: [GCController]?
     
     // iPhone
     @Published var accX = 0.0
@@ -32,12 +36,29 @@ class SensorManager: NSObject, ObservableObject {
     @Published var magY = 0.0
     @Published var magZ = 0.0
     
+    // Game Controller
+    @Published var isControllerConnected = false
+    
+    @Published var controllerAccX = 0.0
+    @Published var controllerAccY = 0.0
+    @Published var controllerAccZ = 0.0
+    @Published var controllerGyrX = 0.0
+    @Published var controllerGyrY = 0.0
+    @Published var controllerGyrZ = 0.0
     
     var timer = Timer()
     
     override init() {
         super.init()
         self.motionManager = CMMotionManager()
+        self.controllers = GCController.controllers()
+        
+        if self.controllers!.count > 0 {
+            self.isControllerConnected = true
+        }
+        
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        appDelegate.motionDelegate = self
     }
     
     @objc private func startLogSensor() {
@@ -92,6 +113,34 @@ class SensorManager: NSObject, ObservableObject {
         self.data.append(time: timestamp, x: self.accX, y: self.accY, z: self.accZ, sensorType: .phoneAccelerometer)
         self.data.append(time: timestamp, x: self.gyrX, y: self.gyrY, z: self.gyrZ, sensorType: .phoneGyroscope)
         self.data.append(time: timestamp, x: self.magX, y: self.magY, z: self.magZ, sensorType: .phoneMagnetometer)
+    }
+    
+    // GCMotion
+    func motionUpdate(motion: GCMotion) {
+        let accX = motion.userAcceleration.x + motion.gravity.x
+        let accY = motion.userAcceleration.y + motion.gravity.y
+        let accZ = motion.userAcceleration.z + motion.gravity.z
+        
+        self.controllerAccX = accX
+        self.controllerAccY = accY
+        self.controllerAccZ = accZ
+        
+        if motion.hasRotationRate {
+            let gyrX = motion.rotationRate.x
+            let gyrY = motion.rotationRate.y
+            let gyrZ = motion.rotationRate.z
+            
+            self.controllerGyrX = gyrX
+            self.controllerGyrY = gyrY
+            self.controllerGyrZ = gyrZ
+        }
+        else {
+            self.controllerGyrX = Double.nan
+            self.controllerGyrY = Double.nan
+            self.controllerGyrZ = Double.nan
+        }
+        
+        print("GCMotion: \(self.controllerAccX), \(self.controllerAccY), \(self.controllerAccZ)")
     }
     
     func startUpdate(_ freq: Double) {
