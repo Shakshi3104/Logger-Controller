@@ -15,6 +15,8 @@
 		CE936479235063F30087CA57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE936478235063F30087CA57 /* Assets.xcassets */; };
 		CE93647C235063F30087CA57 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE93647B235063F30087CA57 /* Preview Assets.xcassets */; };
 		CE93647F235063F30087CA57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE93647D235063F30087CA57 /* LaunchScreen.storyboard */; };
+		CEB5FB22253472F900575DC0 /* IMG_4340.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CEB5FB21253472F900575DC0 /* IMG_4340.PNG */; };
+		CEB5FB252534735B00575DC0 /* IMG_4341.PNG in Resources */ = {isa = PBXBuildFile; fileRef = CEB5FB242534735B00575DC0 /* IMG_4341.PNG */; };
 		CEE5A6A52532E784004BA92F /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CEE5A6A42532E77D004BA92F /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
@@ -29,8 +31,8 @@
 		CE93647B235063F30087CA57 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		CE93647E235063F30087CA57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CE936480235063F30087CA57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEA2AE8B2522ECA200F6820A /* IMG_4307.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_4307.PNG; sourceTree = "<group>"; };
-		CEA2AE8C2522ECAB00F6820A /* IMG_4308.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_4308.PNG; sourceTree = "<group>"; };
+		CEB5FB21253472F900575DC0 /* IMG_4340.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_4340.PNG; sourceTree = "<group>"; };
+		CEB5FB242534735B00575DC0 /* IMG_4341.PNG */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = IMG_4341.PNG; sourceTree = "<group>"; };
 		CEE5A6A42532E77D004BA92F /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		CEF12F6524C7C36F001DA115 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -92,8 +94,8 @@
 		CEF12F6624C7C60A001DA115 /* materials */ = {
 			isa = PBXGroup;
 			children = (
-				CEA2AE8B2522ECA200F6820A /* IMG_4307.PNG */,
-				CEA2AE8C2522ECAB00F6820A /* IMG_4308.PNG */,
+				CEB5FB242534735B00575DC0 /* IMG_4341.PNG */,
+				CEB5FB21253472F900575DC0 /* IMG_4340.PNG */,
 			);
 			path = materials;
 			sourceTree = "<group>";
@@ -162,6 +164,8 @@
 			files = (
 				CEE5A6A52532E784004BA92F /* Settings.bundle in Resources */,
 				CE93647F235063F30087CA57 /* LaunchScreen.storyboard in Resources */,
+				CEB5FB22253472F900575DC0 /* IMG_4340.PNG in Resources */,
+				CEB5FB252534735B00575DC0 /* IMG_4341.PNG in Resources */,
 				CE93647C235063F30087CA57 /* Preview Assets.xcassets in Resources */,
 				CE936479235063F30087CA57 /* Assets.xcassets in Resources */,
 			);

@@ -6,8 +6,10 @@ This also measure acceleration and gyroscope data of a game controller.
 
 - Note : I don't know if it will work because I haven't tested this app on a real device.
 
-![screen](materials/IMG_4307.PNG) | ![screen_chart](materials/IMG_4308.PNG) 
+Screenshot | Logger Series
 :-:|:-:
+![screen](materials/IMG_4340.PNG) | ![screen_chart](materials/IMG_4341.PNG) 
+
 
 ## Version
 0.9.0
